@@ -1,0 +1,54 @@
+.movie_header {
+    min-height: 100vh;
+    position: relative;
+}
+
+.wrapper_blur {
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(5px);
+    z-index: -10;
+    background-color: #1A1A1A;
+}
+
+.wrabber_darken {
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -9;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.movie_select h5{
+    line-height: 30px;
+}
+/*.movie_main_wrap {*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    right: 0;*/
+/*    background-color: black;*/
+/*    z-index: -11;*/
+
+/*}*/
+
+section {
+    background-color: black;
+    min-height: 500px;
+}
+
+/*.movie_main {*/
+/*    height: 500px;*/
+/*    background-color: #1A1A1A;*/
+/*}*/
