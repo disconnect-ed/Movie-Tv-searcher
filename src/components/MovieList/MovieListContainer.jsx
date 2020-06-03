@@ -1,26 +1,27 @@
 import React from "react";
 import {connect} from "react-redux";
-import {getMovie, updateMovieTitle} from "../../redux/movies-reducer";
-import {Container} from "react-bootstrap";
+import {getMovie, updateMovieTitle} from "../../redux/movieList-reducer";
 import MovieListSearcher from "./MovieListSearcher";
 import MovieList from "./MovieList";
 import {getMovieList} from "../../redux/selectors";
-import {withRouter} from "react-router";
 
 class MovieListContainer extends React.Component {
 
+    onPageChanged = (pageNumber) => {
+        this.props.getMovie(this.props.movieTitle, pageNumber);
+    }
+
     render() {
-        debugger
+
         return (
             <>
-                <Container fluid>
-                    <MovieListSearcher updateMovieTitle={this.props.updateMovieTitle}
-                                       getMovie={this.props.getMovie}
-                                       movieTitle={this.props.movieTitle}
-                    />
-                    <MovieList movieList={this.props.movieList}
-                    />
-                </Container>
+                <MovieListSearcher updateMovieTitle={this.props.updateMovieTitle}
+                                   getMovie={this.props.getMovie}
+                                   movieTitle={this.props.movieTitle}
+                />
+                <MovieList onPageChanged={this.onPageChanged} page={this.props.page}
+                           totalPages={this.props.totalPages} movieList={this.props.movieList}
+                />
             </>
         )
     }
@@ -29,10 +30,11 @@ class MovieListContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         movieList: getMovieList(state),
-        movieTitle: state.movieListPage.movieTitle
+        movieTitle: state.movieListPage.movieTitle,
+        page: state.movieListPage.page,
+        totalPages: state.movieListPage.totalPages
     }
 }
 
-let urlDataContainer = withRouter(MovieListContainer);
 
-export default connect(mapStateToProps, { getMovie, updateMovieTitle })(urlDataContainer);
+export default connect(mapStateToProps, {getMovie, updateMovieTitle})(MovieListContainer);

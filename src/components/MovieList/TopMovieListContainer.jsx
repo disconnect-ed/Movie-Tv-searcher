@@ -1,24 +1,29 @@
 import React from "react";
-import {Container} from "react-bootstrap";
 import {connect} from "react-redux";
 import MovieList from "./MovieList";
-import {getPopularMovieList} from "../../redux/selectors";
-import {getPopularMovie} from "../../redux/movieList-reducer";
+import {getTopMovieList} from "../../redux/selectors";
+import {getTopMovie} from "../../redux/topMovieList-reducer";
 
-class PopularMovieListContainer extends React.Component {
+class TopMovieListContainer extends React.Component {
 
     componentDidMount() {
+        if (!this.props.topMovieList) {
+            this.props.getTopMovie()
+        }
+    }
 
-        this.props.getPopularMovie()
+    onPageChanged = (pageNumber) => {
+        this.props.getTopMovie(pageNumber);
     }
 
     render() {
         return (
             <>
-                <Container fluid>
-                    <MovieList movieList={this.props.popularMovieList}
-                    />
-                </Container>
+                <MovieList movieList={this.props.topMovieList}
+                           onPageChanged={this.onPageChanged}
+                           page={this.props.page}
+                           totalPages={this.props.totalPages}
+                />
             </>
         )
     }
@@ -27,8 +32,10 @@ class PopularMovieListContainer extends React.Component {
 let mapStateToProps = (state) => {
 
     return {
-        popularMovieList: getPopularMovieList(state),
+        topMovieList: getTopMovieList(state),
+        page: state.topMovieListPage.page,
+        totalPages: state.topMovieListPage.totalPages
     }
 }
 
-export default connect(mapStateToProps, {getPopularMovie})(PopularMovieListContainer);
+export default connect(mapStateToProps, {getTopMovie})(TopMovieListContainer);

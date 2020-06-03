@@ -2,41 +2,58 @@ import {movieAPI} from "../api/api";
 
 const SET_MOVIE_LIST = 'SET_MOVIE_LIST';
 const UPDATE_MOVIE_TITLE = 'UPDATE_MOVIE_TITLE';
-const SET_MOVIE_GENRE_LIST = 'SET_MOVIE_GENRE_LIST';
 
 let initialState = {
     movieTitle: '',
     movieList: null,
-    movieGenreList: null
+    page: 1,
+    totalPages: null
 }
 
-const moviesReducer = (state = initialState, action) => {
+const movieListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_MOVIE_LIST:
             return {
                 ...state,
-                movieList: action.movie
+                movieList: action.movie,
+                totalPages: action.movie.data.total_pages,
+                page: action.movie.data.page
             };
         case UPDATE_MOVIE_TITLE:
             return {
                 ...state,
                 movieTitle: action.movieTitle
-            }
+            };
         default:
             return state;
     }
 }
 
 export const setMovieList = (movie) => ({type: SET_MOVIE_LIST, movie});
-export const setMovieGenreList = (genre) => ({type: SET_MOVIE_GENRE_LIST, genre})
 export const updateMovieTitle = (movieTitle) => ({type: UPDATE_MOVIE_TITLE, movieTitle});
 
-export const getMovie = (movie) => {
+export const getMovie = (movie, page) => {
     return (dispatch) => {
-        movieAPI.getMovieList(movie).then(response => {
+        movieAPI.getMovieList(movie, page).then(response => {
             dispatch(setMovieList(response))
         })
     }
 }
 
-export default moviesReducer;
+// export const getPopularMovie = (page) => {
+//     return (dispatch) => {
+//         movieAPI.getPopularMovieList(page).then(response => {
+//             dispatch(setPopularMovieList(response))
+//         })
+//     }
+// }
+
+// export const getTopMovie = (page) => {
+//     return (dispatch) => {
+//         movieAPI.getTopTvList(page).then(response => {
+//             dispatch(setTopMovieList(response))
+//         })
+//     }
+// }
+
+export default movieListReducer;

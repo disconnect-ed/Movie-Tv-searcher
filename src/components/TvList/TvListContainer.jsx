@@ -1,5 +1,4 @@
 import React from "react";
-import {Container} from "react-bootstrap";
 import {connect} from "react-redux";
 import {getTv, updateTvTitle} from "../../redux/tvList-reducer";
 import TvListSearcher from "./TvListSearcher";
@@ -8,17 +7,22 @@ import {getTvList} from "../../redux/selectors";
 
 class TvListContainer extends React.Component {
 
+    onPageChanged = (pageNumber) => {
+        this.props.getTv(this.props.tvTitle ,pageNumber);
+    }
+
     render() {
         return (
             <>
-                <Container fluid>
                     <TvListSearcher updateTvTitle={this.props.updateTvTitle}
                                     getTv={this.props.getTv}
                                     tvTitle={this.props.tvTitle}
                     />
                     <TvList tvList={this.props.tvList}
+                            onPageChanged={this.onPageChanged}
+                            page={this.props.page}
+                            totalPages={this.props.totalPages}
                     />
-                </Container>
             </>
         )
     }
@@ -27,7 +31,9 @@ class TvListContainer extends React.Component {
 let mapStateToProps = (state) => {
     return {
         tvList: getTvList(state),
-        tvTitle: state.tvListPage.tvTitle
+        tvTitle: state.tvListPage.tvTitle,
+        page: state.tvListPage.page,
+        totalPages: state.tvListPage.totalPages
     }
 }
 

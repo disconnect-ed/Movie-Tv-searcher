@@ -3,7 +3,7 @@ import {FormControl} from "react-bootstrap";
 
 
 const TvListSearcher = (props) => {
-debugger
+
     let tvTitle = React.createRef();
 
     let onChange = () => {
@@ -13,7 +13,7 @@ debugger
     }
 
     return (
-        <div className='col-4 m-auto text-center' >
+        <div className='col-xl-4 col-lg-6 col-md-8 col-sm-10 col-12 m-auto text-center' >
             <div className="search">
                 <div className="form-group row">
                     <div className="col-12">

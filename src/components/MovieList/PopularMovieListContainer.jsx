@@ -1,34 +1,41 @@
 import React from "react";
-import {Container} from "react-bootstrap";
 import {connect} from "react-redux";
-import {getPopularTv} from "../../redux/tvList-reducer";
-import TvList from "./TvList";
-import {getPopularTvList} from "../../redux/selectors";
+import MovieList from "./MovieList";
+import {getPopularMovieList} from "../../redux/selectors";
+import {getPopularMovie} from "../../redux/popularMovieList-reducer";
 
-class popularTvListContainer extends React.Component {
+
+class PopularMovieListContainer extends React.Component {
 
     componentDidMount() {
-        debugger
-        this.props.getPopularTv()
+        if (!this.props.popularMovieList) {
+            this.props.getPopularMovie()
+        }
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.getPopularMovie(pageNumber);
     }
 
     render() {
         return (
             <>
-                <Container fluid>
-                    <TvList tvList={this.props.popularTvList}
-                    />
-                </Container>
+                <MovieList movieList={this.props.popularMovieList}
+                           onPageChanged={this.onPageChanged}
+                           page={this.props.page}
+                           totalPages={this.props.totalPages}
+                />
             </>
         )
     }
 }
 
 let mapStateToProps = (state) => {
-    debugger
     return {
-        popularTvList: getPopularTvList(state),
+        popularMovieList: getPopularMovieList(state),
+        page: state.popularMovieListPage.page,
+        totalPages: state.popularMovieListPage.totalPages
     }
 }
 
-export default connect(mapStateToProps, {getPopularTv})(popularTvListContainer);
+export default connect(mapStateToProps, {getPopularMovie})(PopularMovieListContainer);
