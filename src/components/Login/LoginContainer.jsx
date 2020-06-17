@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "./Login";
 import {connect} from "react-redux";
-import {getAuthRequest} from "../../redux/auth-reducer";
+import {getAuthRequest} from "../../redux/actions/auth-action";
 
 class LoginContainer extends React.Component {
 

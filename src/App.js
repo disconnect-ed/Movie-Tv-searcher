@@ -13,7 +13,7 @@ import TopMovieListContainer from "./components/MovieList/TopMovieListContainer"
 import LoginContainer from "./components/Login/LoginContainer";
 import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
 import {connect} from "react-redux";
-import {setAuthData} from "./redux/auth-reducer";
+import {setAuthData} from "./redux/actions/auth-action";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
 
 

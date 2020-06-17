@@ -3,7 +3,11 @@ import Load from "../../common/Load/Load";
 import Favorite from "../../common/Favorite/Favorite";
 
 const MovieDescription = (props) => {
+
+    if (props.movieIsLoading) return <Load/>
+
     if (!props.description) return <Load/>
+
     return (
         <div className="col-lg-8 col-12">
             <div className="d-flex flex-column">

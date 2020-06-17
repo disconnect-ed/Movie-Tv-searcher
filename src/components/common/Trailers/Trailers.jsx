@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Load from "../Load/Load";
+import Error from "../Error/Error";
 
 const Trailers = (props) => {
 
@@ -10,7 +11,8 @@ const Trailers = (props) => {
         setState(true)
     }, [state]);
 
-    if (!props.trailers) return <Load/>
+    if (props.isLoading) return <Load/>
+    if (props.error) return <Error/>
     if (props.trailers.results.length === 0) return <div className='col-12 text-center pt-4'>
         <h5>Ничего не найдено</h5>
     </div>

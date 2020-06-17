@@ -1,13 +1,14 @@
 import React from "react";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {getSimilar, getTv, getTvId, getVideos} from "../../redux/tv-reducer";
+import {getSimilar, getTv, getTvId, getVideos} from "../../redux/actions/tv-action";
 import Background from "../common/Background/Background";
 import Poster from "../common/Poster/Poster";
 import TvDescription from "./TvItems/TvDescription";
 import {Container} from "react-bootstrap";
 import TvTabs from "./TvTabs";
-import {getTvAccountStates, markFavorite} from "../../redux/userProfile-reducer";
+import {getTvAccountStates, markFavorite} from "../../redux/actions/userProfile-action";
+import Error from "../common/Error/Error";
 
 
 class TvContainer extends React.Component {
@@ -22,7 +23,7 @@ class TvContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.tvId !== prevProps.tvId) {
+        if (this.props.match.params.tvId !== prevProps.match.params.tvId) {
             let tvId = this.props.match.params.tvId;
             this.props.getTvId(tvId);
             this.props.getTv(tvId);
@@ -33,6 +34,9 @@ class TvContainer extends React.Component {
     }
 
     render() {
+
+        if (this.props.tvError) return <Error/>
+
         return (
             <>
                 <Background background={this.props.tv}/>
@@ -40,13 +44,14 @@ class TvContainer extends React.Component {
                     <div className='pt-5 pb-3'>
                         <div className='pt-5 pb-5'>
                             <div className="row">
-                                <Poster poster={this.props.tv}/>
+                                <Poster isLoading={this.props.tvIsLoading} poster={this.props.tv}/>
                                 <TvDescription session_id={this.props.session_id}
                                                username={this.props.username}
                                                description={this.props.tv}
                                                markFavorite={this.props.markFavorite}
                                                isFavorite={this.props.tvStates}
                                                id={this.props.tvId}
+                                               isLoading={this.props.tvIsLoading}
                                 />
                             </div>
                         </div>
@@ -55,6 +60,10 @@ class TvContainer extends React.Component {
                                 trailers={this.props.videos}
                                 getSimilar={this.props.getSimilar}
                                 similar={this.props.similar}
+                                tvSimilarIsLoading={this.props.tvSimilarIsLoading}
+                                tvTrailersIsLoading={this.props.tvTrailersIsLoading}
+                                tvSimilarError={this.props.tvSimilarError}
+                                tvTrailersError={this.props.tvTrailersError}
                         />
                     </div>
                 </Container>
@@ -69,6 +78,12 @@ let mapStateToProps = (state) => {
         tv: state.tvPage.tv,
         videos: state.tvPage.videos,
         similar: state.tvPage.similar,
+        tvIsLoading: state.tvPage.tvIsLoading,
+        tvSimilarIsLoading: state.tvPage.tvSimilarIsLoading,
+        tvTrailersIsLoading: state.tvPage.tvTrailersIsLoading,
+        tvError: state.tvPage.tvError,
+        tvSimilarError: state.tvPage.tvSimilarError,
+        tvTrailersError: state.tvPage.tvTrailersError,
         username: state.auth.username,
         success: state.auth.success,
         session_id: state.auth.session_id,

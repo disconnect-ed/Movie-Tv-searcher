@@ -8,6 +8,10 @@ const TvListSearcher = (props) => {
 
     let onChange = () => {
         let text = tvTitle.current.value;
+        if (text === '') {
+            props.updateTvTitle(text);
+            return
+        }
         props.updateTvTitle(text);
         props.getTv(text)
     }

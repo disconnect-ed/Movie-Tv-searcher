@@ -26,10 +26,17 @@ const MovieTabs = (props) => {
                     </div>
                 </TabList>
                 <TabPanel >
-                    <Trailers trailers={props.trailers} id={props.movieId} getVideos={props.getVideos} />
+                    <Trailers trailers={props.trailers} id={props.movieId}
+                              getVideos={props.getVideos} isLoading={props.movieTrailersIsLoading}
+                              error={props.movieTrailersError}
+                    />
                 </TabPanel>
                 <TabPanel key={props.movieId} >
-                    <Similar type={'movies'} path={props.path} id={props.movieId} getSimilar={props.getSimilar} similar={props.similar} />
+                    <Similar type={'movies'} path={props.path} id={props.movieId}
+                             getSimilar={props.getSimilar} similar={props.similar}
+                             isLoading={props.movieSimilarIsLoading}
+                             error={props.movieSimilarError}
+                    />
                 </TabPanel>
                 <TabPanel>
 

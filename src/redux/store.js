@@ -1,16 +1,16 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunkMiddleware from 'redux-thunk';
-import movieListReducer from "./movieList-reducer";
-import tvListReducer from "./tvList-reducer";
-import movieReducer from "./movie-reducer";
-import tvReducer from "./tv-reducer";
-import popularMovieListReducer from "./popularMovieList-reducer";
-import topMovieListReducer from "./topMovieList-reducer";
-import popularTvListReducer from "./popularTvList-reducer";
-import topTvListReducer from "./topTvList-reducer";
+import movieListReducer from "./reducers/movieList-reducer";
+import tvListReducer from "./reducers/tvList-reducer";
+import movieReducer from "./reducers/movie-reducer";
+import tvReducer from "./reducers/tv-reducer";
+import popularMovieListReducer from "./reducers/popularMovieList-reducer";
+import topMovieListReducer from "./reducers/topMovieList-reducer";
+import popularTvListReducer from "./reducers/popularTvList-reducer";
+import topTvListReducer from "./reducers/topTvList-reducer";
 import { reducer as formReducer } from 'redux-form'
-import authReducer from "./auth-reducer";
-import userProfileReducer from "./userProfile-reducer";
+import authReducer from "./reducers/auth-reducer";
+import userProfileReducer from "./reducers/userProfile-reducer";
 
 let reducers = combineReducers({
     movieListPage: movieListReducer,

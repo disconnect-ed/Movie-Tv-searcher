@@ -8,6 +8,10 @@ const MovieListSearcher = (props) => {
 
     let onChange = () => {
         let text = movieTitle.current.value;
+        if (text === '') {
+            props.updateMovieTitle(text);
+            return
+        }
         props.updateMovieTitle(text);
         props.getMovie(text)
     }

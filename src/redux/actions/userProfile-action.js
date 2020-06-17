@@ -1,50 +1,5 @@
-import {userProfileAPI} from "../api/api";
-
-const SET_FAVORITE_MOVIES = 'SET_FAVORITE_MOVIES';
-const SET_MOVIE_STATES = 'SET_MOVIE_STATES';
-const SET_TV_STATES = 'SET_TV_STATES';
-const SET_FAVORITE_TV = 'SET_FAVORITE_TV';
-
-let initialState = {
-    favoriteMovies: null,
-    // favoriteMoviePage: null,
-    // favoriteMovieTotalPages: null,
-
-    favoriteTv: null,
-    // favoriteTvPage: null,
-    // favoriteTvTotalPages: null,
-
-
-    movieStates: null,
-    tvStates: null,
-}
-
-const userProfileReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case SET_FAVORITE_MOVIES:
-            return {
-                ...state,
-                favoriteMovies: action.favoriteMovies,
-            }
-        case SET_FAVORITE_TV:
-            return {
-                ...state,
-                favoriteTv: {...action.favoriteTv}
-            }
-        case SET_MOVIE_STATES:
-            return {
-                ...state,
-                movieStates: action.states
-            }
-        case SET_TV_STATES:
-            return {
-                ...state,
-                tvStates: action.states
-            }
-        default:
-            return state;
-    }
-}
+import {userProfileAPI} from "../../api/api";
+import {SET_FAVORITE_MOVIES, SET_FAVORITE_TV, SET_MOVIE_STATES, SET_TV_STATES} from "../reducers/userProfile-reducer";
 
 export const setFavoriteMovies = (favoriteMovies) => ({type: SET_FAVORITE_MOVIES, favoriteMovies})
 export const setFavoriteTv = (favoriteTv) => ({type: SET_FAVORITE_TV, favoriteTv})
@@ -90,6 +45,3 @@ export const getTvAccountStates = (tvId, sessionId) => {
         )
     }
 }
-
-
-export default userProfileReducer;

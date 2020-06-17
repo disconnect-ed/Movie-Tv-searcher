@@ -26,10 +26,13 @@ const TvTabs = (props) => {
                     </div>
                 </TabList>
                 <TabPanel>
-                    <Trailers trailers={props.trailers} id={props.tvId} getVideos={props.getVideos} />
+                    <Trailers trailers={props.trailers} id={props.tvId} isLoading={props.tvTrailersIsLoading}
+                              getVideos={props.getVideos} error={props.tvTrailersError} />
                 </TabPanel>
                 <TabPanel key={props.tvId} >
-                    <Similar type={'tv'} path={props.path} id={props.tvId} getSimilar={props.getSimilar} similar={props.similar} />
+                    <Similar type={'tv'} path={props.path} id={props.tvId} error={props.tvSimilarError}
+                             isLoading={props.tvSimilarIsLoading}
+                             getSimilar={props.getSimilar} similar={props.similar} />
                 </TabPanel>
             </div>
         </Tabs>

@@ -3,10 +3,14 @@ import {Button} from "react-bootstrap";
 import GetStart from "../common/GetStart/GetStart";
 import {NavLink} from "react-router-dom";
 import Paginator from "../common/Paginator";
+import Load from "../common/Load/Load";
 
 const MovieList = (props) => {
 
+    if (props.isLoading) return <Load/>
+
     if (!props.movieList) return <GetStart/>
+
     return (
         <div className="list-wrapper">
             <div className="col-12 ">

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import {logout} from "../../redux/auth-reducer";
-import {getFavoriteMovies, getFavoriteTv} from "../../redux/userProfile-reducer";
+import {logout} from "../../redux/actions/auth-action";
+import {getFavoriteMovies, getFavoriteTv} from "../../redux/actions/userProfile-action";
 import {Container} from "react-bootstrap";
 import UserProfileTabs from "./UserProfileTabs";
 import {Redirect} from "react-router";

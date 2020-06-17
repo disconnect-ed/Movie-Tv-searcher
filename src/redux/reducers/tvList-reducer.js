@@ -1,19 +1,21 @@
-import {tvAPI} from "../api/api";
 
-const SET_TV_LIST = 'SET_TV_LIST';
-const UPDATE_TV_TITLE = 'UPDATE_TV_TITLE';
+export const SET_TV_LIST = 'SET_TV_LIST';
+export const UPDATE_TV_TITLE = 'UPDATE_TV_TITLE';
+export const TV_LIST_IS_LOADING = 'TV_LIST_IS_LOADING';
+export const SET_TV_LIST_ERROR = 'SET_TV_LIST_ERROR';
 
 let initialState = {
     tvTitle: '',
     tvList: null,
     page: 1,
-    totalPages: null
+    totalPages: null,
+    tvListIsLoading: false,
+    tvListError: false
 }
 
 const tvListReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_TV_LIST:
-            debugger
             return {
                 ...state,
                 tvList: action.tv,
@@ -21,25 +23,22 @@ const tvListReducer = (state = initialState, action) => {
                 totalPages: action.tv.data.total_pages,
             };
         case UPDATE_TV_TITLE:
-            debugger
             return {
                 ...state,
                 tvTitle: action.tvTitle
             }
+        case TV_LIST_IS_LOADING:
+            return {
+                ...state,
+                tvListIsLoading: action.bool
+            }
+        case SET_TV_LIST_ERROR:
+            return {
+                ...state,
+                tvListError: action.bool
+            }
         default:
             return state;
-    }
-}
-
-export const setTvList = (tv) => ({type: SET_TV_LIST, tv});
-export const updateTvTitle = (tvTitle) => ({type: UPDATE_TV_TITLE, tvTitle});
-
-
-export const getTv = (tv, page) => {
-    return (dispatch) => {
-        tvAPI.getTvList(tv, page).then(response => {
-            dispatch(setTvList(response))
-        })
     }
 }
 

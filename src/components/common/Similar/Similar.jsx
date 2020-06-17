@@ -3,6 +3,7 @@ import {NavLink} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import './Similar.css'
 import Load from "../../common/Load/Load";
+import Error from "../Error/Error";
 
 const Similar = (props) => {
 
@@ -14,7 +15,8 @@ const Similar = (props) => {
         window.scrollTo(0, 0);
     };
 
-    if (!props.similar) return <Load/>
+    if (props.isLoading) return <Load/>
+    if (props.error) return <Error/>
     if (props.similar.results.length === 0) return <div className='col-12 text-center pt-4'>
         <h5>Ничего не найдено</h5>
     </div>

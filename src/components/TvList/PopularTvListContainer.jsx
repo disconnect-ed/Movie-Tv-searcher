@@ -1,8 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import TvList from "./TvList";
-import {getPopularTvList} from "../../redux/selectors";
-import {getPopularTv} from "../../redux/popularTvList-reducer";
+import {getPopularTvList} from "../utils/selectors";
+import {getPopularTv} from "../../redux/actions/popularTvList-action";
+import Error from "../common/Error/Error";
 
 class popularTvListContainer extends React.Component {
 
@@ -17,12 +18,16 @@ class popularTvListContainer extends React.Component {
     }
 
     render() {
+
+        if (this.props.popularTvListError) return <Error/>
+
         return (
             <>
                 <TvList tvList={this.props.popularTvList}
                         onPageChanged={this.onPageChanged}
                         page={this.props.page}
                         totalPages={this.props.totalPages}
+                        isLoading={this.props.popularTvListIsLoading}
                 />
             </>
         )
@@ -33,7 +38,9 @@ let mapStateToProps = (state) => {
     return {
         popularTvList: getPopularTvList(state),
         page: state.popularTvListPage.page,
-        totalPages: state.popularTvListPage.totalPages
+        totalPages: state.popularTvListPage.totalPages,
+        popularTvListIsLoading: state.popularTvListPage.popularTvListIsLoading,
+        popularTvListError: state.popularTvListPage.popularTvListError,
     }
 }
 

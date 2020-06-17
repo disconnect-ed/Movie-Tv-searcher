@@ -1,8 +1,9 @@
 import React from "react";
 import {connect} from "react-redux";
 import TvList from "./TvList";
-import {getTopTvList} from "../../redux/selectors";
-import {getTopTv} from "../../redux/topTvList-reducer";
+import {getTopTvList} from "../utils/selectors";
+import {getTopTv} from "../../redux/actions/topTvList-action";
+import Error from "../common/Error/Error";
 
 class TopTvListContainer extends React.Component {
 
@@ -17,12 +18,16 @@ class TopTvListContainer extends React.Component {
     }
 
     render() {
+
+        if (this.props.topTvListError) return <Error/>
+
         return (
             <>
                     <TvList tvList={this.props.topTvList}
                             onPageChanged={this.onPageChanged}
                             page={this.props.page}
                             totalPages={this.props.totalPages}
+                            isLoading={this.props.topTvListIsLoading}
                     />
             </>
         )
@@ -33,7 +38,9 @@ let mapStateToProps = (state) => {
     return {
         topTvList: getTopTvList(state),
         page: state.topTvListPage.page,
-        totalPages: state.topTvListPage.totalPages
+        totalPages: state.topTvListPage.totalPages,
+        topTvListIsLoading: state.topTvListPage.topTvListIsLoading,
+        topTvListError: state.topTvListPage.topTvListError,
     }
 }
 

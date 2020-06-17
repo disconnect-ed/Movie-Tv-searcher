@@ -1,7 +1,11 @@
 import React from "react";
 import Favorite from "../../common/Favorite/Favorite";
+import Load from "../../common/Load/Load";
 
 const TvDescription = (props) => {
+
+    if (props.isLoading) return <Load/>
+
     if (props.description) {
         return (
             <div className="col-lg-8 col-12">
@@ -36,7 +40,7 @@ const TvDescription = (props) => {
             </div>
         )
     } else {
-        return <div>null</div>
+        return null
     }
 
 }

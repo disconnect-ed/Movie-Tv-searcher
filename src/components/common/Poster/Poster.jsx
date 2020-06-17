@@ -1,6 +1,10 @@
 import React from "react";
+import Load from "../Load/Load";
 
 const Poster = (props) => {
+
+    if (props.isLoading) return <Load/>
+
     if (!props.poster) return <></>
     return (
         <div className="col-lg-4 pb-3 col-12 text-center">
